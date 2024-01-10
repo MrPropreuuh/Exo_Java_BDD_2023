@@ -35,7 +35,7 @@
 <% if (valeurCarre != null && !valeurCarre.isEmpty()) { %>
 
 <%-- Boucle for pour afficher le carré d'étoiles --%>
-    <%int tailleCarre = Integer.parseInt(valeurCarre); %>
+    <% int tailleCarre = Integer.parseInt(valeurCarre); %>
     <% for (int i = 1; i <= tailleCarre; i++) { %>
         <p>
         <% for (int j = 1; j <= tailleCarre; j++) { %>
