@@ -49,8 +49,25 @@
 
 <h2>Exercice 2 : Triangle rectangle gauche</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la gauche</p>
-<p>Exemple si l'utilisateur saisie le valeur 5</p>
-<p>*</br>**</br>***</br>****</br>*****</p>
+
+<%-- Récupération de la valeur saisie par l'utilisateur --%>
+<% String valeurTriangle = request.getParameter("valeur"); %>
+
+<%-- Vérification de l'existence de la valeur --%>
+<% if (valeurTriangle != null && !valeurTriangle.isEmpty()) { %>
+
+<%-- Boucle for pour afficher le triangle rectangle gauche --%>
+    <% int tailleTriangle = Integer.parseInt(valeurTriangle); %>
+    <% for (int i = 1; i <= tailleTriangle; i++) { %>
+        <p>
+        <% for (int j = 1; j <= i; j++) { %>
+            <%= "*" %>
+        <% } %>
+        </p>
+    <% } %>
+
+<% } %>
+
 
 <h2>Exercice 3 : Triangle rectangle inversé</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la gauche</p>
