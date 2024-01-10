@@ -10,22 +10,20 @@
     <p><input type="submit" value="Afficher"></p>
 </form>
 
-<%-- Récupération des valeurs --%>
-<%
-    String chaine = request.getParameter("chaine");
+<h2>Exercice 1 : Combien de 'e' dans notre chaine de caractères ?</h2>
+<p>Ecrire un programme pour compter le nombre de lettre e dans votre chaine de caractères</p>
 
-    if (chaine != null && chaine.length() >= 6) {
-        // Exercice 1 : Combien de 'e' dans la chaîne
-        int nombreDeE = 0;
-        for (int i = 0; i < chaine.length(); i++) {
-            if (chaine.charAt(i) == 'e') {
-                nombreDeE++;
-            }
-        %>
-            <p>Le nombre de 'e' dans votre chaine est : <%= nombreDeE %></p>
-        <%
-            break; // On a trouvé tous les 'e', pas besoin de continuer la boucle
+<%
+    // Exercice 1 : Combien de 'e' dans la chaîne
+    int nombreDeE = 0;
+    for (int i = 0; i < chaine.length(); i++) {
+        if (chaine.charAt(i) == 'e' || chaine.charAt(i) == 'E') {
+            nombreDeE++;
         }
+    }
+%>
+<p>Le nombre de 'e' dans votre chaîne est : <%= nombreDeE %></p>
+
 
         // Exercice 2 : Affichage vertical
         %>
