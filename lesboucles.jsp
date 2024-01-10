@@ -93,8 +93,30 @@
 
 <h2>Exercice 4 : Triangle rectangle 2</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la droite</p>
-<p>Exemple si l'utilisateur saisie le valeur 5</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**</br>&nbsp;&nbsp;&nbsp;&nbsp;***</br>&nbsp;&nbsp;****</br>*****</p>
+
+<%-- Récupération de la valeur saisie par l'utilisateur --%>
+<% String valeurTriangleDroite = request.getParameter("valeur"); %>
+
+<%-- Vérification de l'existence de la valeur --%>
+<% if (valeurTriangleDroite != null && !valeurTriangleDroite.isEmpty()) { %>
+
+<%-- Boucle for pour afficher le triangle rectangle aligné sur la droite --%>
+    <% int tailleTriangleDroite = Integer.parseInt(valeurTriangleDroite); %>
+    <% for (int i = 1; i <= tailleTriangleDroite; i++) { %>
+        <p>
+        <%-- Boucle for pour afficher les espaces à gauche --%>
+        <% for (int j = tailleTriangleDroite - i; j > 0; j--) { %>
+            <%= "&nbsp;" %>
+        <% } %>
+        <%-- Boucle for pour afficher les étoiles --%>
+        <% for (int k = 1; k <= i; k++) { %>
+            <%= "*" %>
+        <% } %>
+        </p>
+    <% } %>
+
+<% } %>
+
 
 <h2>Exercice 5 : Triangle isocele</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la droite</p>
