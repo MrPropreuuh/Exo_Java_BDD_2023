@@ -1,95 +1,99 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>Les nombres</title>
+<title>Les chaines</title>
 </head>
 <body bgcolor=white>
-<h1>Exercices sur les nombres</h1>
+<h1>Exercices sur les chaines de charactères</h1>
 <form action="#" method="post">
-    <p>Saisir trois valeurs (séparées par des espaces) : <input type="text" id="inputValeurs" name="valeurs"></p>
+    <p>Saisir une chaine (Du texte avec 6 caractères minimum) : <input type="text" id="inputValeur" name="chaine"></p>
     <p><input type="submit" value="Afficher"></p>
 </form>
 
 <%-- Récupération des valeurs --%>
 <%
-    String valeurs = request.getParameter("valeurs");
+    String chaine = request.getParameter("chaine");
 
-    if (valeurs != null) {
-        // Exercice 1 : Carré de la première valeur
-        String[] tableauValeurs = valeurs.split(" ");
-        if (tableauValeurs.length >= 1) {
-            int premiereValeur = Integer.parseInt(tableauValeurs[0]);
+    if (chaine != null && chaine.length() >= 6) {
+        // Exercice 1 : Combien de 'e' dans la chaîne
+        int nombreDeE = 0;
+        for (int i = 0; i < chaine.length(); i++) {
+            if (chaine.charAt(i) == 'e') {
+                nombreDeE++;
+            }
         %>
-            <p>Le carré de la première valeur est : <%= Math.pow(premiereValeur, 2) %></p>
+            <p>Le nombre de 'e' dans votre chaine est : <%= nombreDeE %></p>
+        <%
+            break; // On a trouvé tous les 'e', pas besoin de continuer la boucle
+        }
+
+        // Exercice 2 : Affichage vertical
+        %>
+        <h2>Exercice 2 : Affichage vertical</h2>
+        <p>Ecrire le programme pour afficher le texte en vertical</p>
+        <%
+        for (int i = 0; i < chaine.length(); i++) {
+        %>
+            <p><%= chaine.charAt(i) %></p>
         <%
         }
 
-        // Exercice 2 : Somme des deux premières valeurs
-        if (tableauValeurs.length >= 2) {
-            int premiereValeur = Integer.parseInt(tableauValeurs[0]);
-            int deuxiemeValeur = Integer.parseInt(tableauValeurs[1]);
+        // Exercice 3 : Retour à la ligne
         %>
-            <p>La somme des deux premières valeurs est : <%= premiereValeur + deuxiemeValeur %></p>
+        <h2>Exercice 3 : Retour à la ligne</h2>
+        <p>La présence d'un espace provoque un retour à la ligne</p>
+        <%
+        String[] mots = chaine.split(" ");
+        for (String mot : mots) {
+        %>
+            <p><%= mot %></p>
         <%
         }
 
-        // Exercice 3 : Somme de toutes les valeurs
-        int sommeTotale = 0;
-        for (String valeur : tableauValeurs) {
-            sommeTotale += Integer.parseInt(valeur);
-        }
+        // Exercice 4 : Afficher une lettre sur deux
         %>
-        <p>La somme de toutes les valeurs est : <%= sommeTotale %></p>
-
-        <!-- Exercice 4 : Valeur maximale -->
+        <h2>Exercice 4 : Afficher une lettre sur deux</h2>
+        <p>Ecrire le programme pour afficher seulement une lettre sur deux de votre texte</p>
         <%
-        int valeurMaximale = Integer.MIN_VALUE;
-        for (String valeur : tableauValeurs) {
-            int valeurActuelle = Integer.parseInt(valeur);
-            if (valeurActuelle > valeurMaximale) {
-                valeurMaximale = valeurActuelle;
+        for (int i = 0; i < chaine.length(); i += 2) {
+        %>
+            <p><%= chaine.charAt(i) %></p>
+        <%
+        }
+
+        // Exercice 5 : La phrase en verlan
+        %>
+        <h2>Exercice 5 : La phrase en verlan</h2>
+        <p>Ecrire le programme afin d'afficher le texte en verlan</p>
+        <%
+        for (int i = chaine.length() - 1; i >= 0; i--) {
+        %>
+            <p><%= chaine.charAt(i) %></p>
+        <%
+        }
+
+        // Exercice 6 : Consonnes et voyelles
+        %>
+        <h2>Exercice 6 : Consonnes et voyelles</h2>
+        <p>Ecrire le programme afin de compter les consonnes et les voyelles dans votre texte</p>
+        <%
+        int nombreConsonnes = 0;
+        int nombreVoyelles = 0;
+
+        for (int i = 0; i < chaine.length(); i++) {
+            char caractere = Character.toLowerCase(chaine.charAt(i));
+            if (caractere >= 'a' && caractere <= 'z') {
+                if (caractere == 'a' || caractere == 'e' || caractere == 'i' || caractere == 'o' || caractere == 'u') {
+                    nombreVoyelles++;
+                } else {
+                    nombreConsonnes++;
+                }
             }
         }
         %>
-        <p>La valeur maximale saisie est : <%= valeurMaximale %></p>
-
-        <!-- Exercice 5 : Valeur minimale -->
+        <p>Le nombre de consonnes dans votre chaine est : <%= nombreConsonnes %></p>
+        <p>Le nombre de voyelles dans votre chaine est : <%= nombreVoyelles %></p>
         <%
-        int valeurMinimale = Integer.MAX_VALUE;
-        for (String valeur : tableauValeurs) {
-            int valeurActuelle = Integer.parseInt(valeur);
-            if (valeurActuelle < valeurMinimale) {
-                valeurMinimale = valeurActuelle;
-            }
-        }
-        %>
-        <p>La valeur minimale saisie est : <%= valeurMinimale %></p>
-
-        <!-- Exercice 6 : Valeur la plus proche de 0 -->
-        <%
-        int valeurPlusProcheDeZero = Integer.parseInt(tableauValeurs[0]);
-        for (String valeur : tableauValeurs) {
-            int valeurActuelle = Integer.parseInt(valeur);
-            if (Math.abs(valeurActuelle) < Math.abs(valeurPlusProcheDeZero)) {
-                valeurPlusProcheDeZero = valeurActuelle;
-            }
-        }
-        %>
-        <p>La valeur la plus proche de 0 est : <%= valeurPlusProcheDeZero %></p>
-
-        <!-- Exercice 7 : Valeur la plus proche de 0 (2° version) -->
-        <%
-        int valeurPlusProcheDeZero2 = Integer.parseInt(tableauValeurs[0]);
-        for (String valeur : tableauValeurs) {
-            int valeurActuelle = Integer.parseInt(valeur);
-            if (Math.abs(valeurActuelle) < Math.abs(valeurPlusProcheDeZero2)
-                    || (Math.abs(valeurActuelle) == Math.abs(valeurPlusProcheDeZero2) && valeurActuelle > 0)) {
-                valeurPlusProcheDeZero2 = valeurActuelle;
-            }
-        }
-        %>
-        <p>La valeur la plus proche de 0 (2° version) est : <%= valeurPlusProcheDeZero2 %></p>
-<%
     }
 %>
 
