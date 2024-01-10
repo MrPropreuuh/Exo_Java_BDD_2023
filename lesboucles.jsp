@@ -145,11 +145,46 @@
 <% } %>
 
 
-<h2>Exercice 6 : Le demi losange</h2>
-<p>Ecrire le code afin de produire un losange</p>
-<p>Exemple si l'utilisateur saisie le valeur 5</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**</br>&nbsp;&nbsp;&nbsp;&nbsp;***</br>&nbsp;&nbsp;****</br>*****</p>
-<p>*****</br>&nbsp;&nbsp;****</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</p>
+<h2>Exercice 6 : Le demi-losange</h2>
+<p>Ecrire le code afin de produire un demi-losange avec les triangles des exercices 4 et 3</p>
+
+<%-- Récupération de la valeur saisie par l'utilisateur --%>
+<% String valeurLosange = request.getParameter("valeur"); %>
+
+<%-- Vérification de l'existence de la valeur --%>
+<% if (valeurLosange != null && !valeurLosange.isEmpty()) { %>
+
+<%-- Boucle for pour afficher le triangle rectangle aligné sur la droite --%>
+    <% int tailleLosange = Integer.parseInt(valeurLosange); %>
+    <% for (int i = 1; i <= tailleLosange; i++) { %>
+        <p>
+        <%-- Boucle for pour afficher les espaces à gauche --%>
+        <% for (int j = tailleLosange - i; j > 0; j--) { %>
+            <%= "&nbsp;" %>
+        <% } %>
+        <%-- Boucle for pour afficher les étoiles --%>
+        <% for (int k = 1; k <= i; k++) { %>
+            <%= "*" %>
+        <% } %>
+        </p>
+    <% } %>
+
+<%-- Boucle for pour afficher le triangle rectangle inversé --%>
+    <% for (int i = tailleLosange; i >= 1; i--) { %>
+        <p>
+        <%-- Boucle for pour afficher les espaces à gauche --%>
+        <% for (int j = tailleLosange - i; j > 0; j--) { %>
+            <%= "&nbsp;" %>
+        <% } %>
+        <%-- Boucle for pour afficher les étoiles --%>
+        <% for (int k = 1; k <= i; k++) { %>
+            <%= "*" %>
+        <% } %>
+        </p>
+    <% } %>
+
+<% } %>
+
 
 <h2>Exercice 7 : La table de multiplication</h2>
 <p>Ecrire le code afin de créser une table de multiplication</p>
