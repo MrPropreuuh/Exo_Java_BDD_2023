@@ -106,7 +106,7 @@
         <p>
         <%-- Boucle for pour afficher les espaces à gauche --%>
         <% for (int j = tailleTriangleDroite - i; j > 0; j--) { %>
-            <%= (j == 1) ? "" : "&nbsp;" %>
+            <%= "&nbsp;" %>
         <% } %>
         <%-- Boucle for pour afficher les étoiles --%>
         <% for (int k = 1; k <= i; k++) { %>
@@ -116,6 +116,7 @@
     <% } %>
 
 <% } %>
+
 
 
 
