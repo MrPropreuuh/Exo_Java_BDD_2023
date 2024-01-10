@@ -1,102 +1,93 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>Les chaines</title>
+<title>Les tableaux</title>
 </head>
 <body bgcolor=white>
-<h1>Exercices sur les chaines de charactères</h1>
+<h1>Exercices sur les tableaux</h1>
 <form action="#" method="post">
-    <p>Saisir une chaine (Du texte avec 6 caractères minimum) : <input type="text" id="inputValeur" name="chaine"></p>
+    <p>Saisir au minimum 3 chiffres à la suite, exemple : 6 78 15 <input type="text" id="inputValeur" name="chaine"></p>
     <p><input type="submit" value="Afficher"></p>
 </form>
 
-<%-- Récupération des valeurs --%>
 <%
     String chaine = request.getParameter("chaine");
 
-    if (chaine != null && chaine.length() >= 6) {
-        // Exercice 1 : Combien de 'e' dans la chaîne
-        int nombreDeE = 0;
-        for (int i = 0; i < chaine.length(); i++) {
-            if (chaine.charAt(i) == 'e') {
-                nombreDeE++;
-            }
-        %>
-            <p>Le nombre de 'e' dans votre chaine est : <%= nombreDeE %></p>
-        <%
-            break; // On a trouvé tous les 'e', pas besoin de continuer la boucle
+    if (chaine != null) {
+        String[] tableauDeChiffres = chaine.split("\\s+");
+
+        // Exercice 1 : Carré de la première valeur
+        int carrePremiereValeur = Integer.parseInt(tableauDeChiffres[0]) * Integer.parseInt(tableauDeChiffres[0]);
+
+        // Exercice 2 : Somme des deux premières valeurs
+        int sommeDeuxPremieresValeurs = Integer.parseInt(tableauDeChiffres[0]) + Integer.parseInt(tableauDeChiffres[1]);
+
+        // Exercice 3 : Somme de toutes les valeurs
+        int sommeToutesValeurs = 0;
+        for (String valeur : tableauDeChiffres) {
+            sommeToutesValeurs += Integer.parseInt(valeur);
         }
 
-        // Exercice 2 : Affichage vertical
-        %>
-        <h2>Exercice 2 : Affichage vertical</h2>
-        <p>Ecrire le programme pour afficher le texte en vertical</p>
-        <%
-        for (int i = 0; i < chaine.length(); i++) {
-        %>
-            <p><%= chaine.charAt(i) %></p>
-        <%
-        }
-
-        // Exercice 3 : Retour à la ligne
-        %>
-        <h2>Exercice 3 : Retour à la ligne</h2>
-        <p>La présence d'un espace provoque un retour à la ligne</p>
-        <%
-        String[] mots = chaine.split(" ");
-        for (String mot : mots) {
-        %>
-            <p><%= mot %></p>
-        <%
-        }
-
-        // Exercice 4 : Afficher une lettre sur deux
-        %>
-        <h2>Exercice 4 : Afficher une lettre sur deux</h2>
-        <p>Ecrire le programme pour afficher seulement une lettre sur deux de votre texte</p>
-        <%
-        for (int i = 0; i < chaine.length(); i += 2) {
-        %>
-            <p><%= chaine.charAt(i) %></p>
-        <%
-        }
-
-        // Exercice 5 : La phrase en verlan
-        %>
-        <h2>Exercice 5 : La phrase en verlan</h2>
-        <p>Ecrire le programme afin d'afficher le texte en verlan</p>
-        <%
-        for (int i = chaine.length() - 1; i >= 0; i--) {
-        %>
-            <p><%= chaine.charAt(i) %></p>
-        <%
-        }
-
-        // Exercice 6 : Consonnes et voyelles
-        %>
-        <h2>Exercice 6 : Consonnes et voyelles</h2>
-        <p>Ecrire le programme afin de compter les consonnes et les voyelles dans votre texte</p>
-        <%
-        int nombreConsonnes = 0;
-        int nombreVoyelles = 0;
-
-        for (int i = 0; i < chaine.length(); i++) {
-            char caractere = Character.toLowerCase(chaine.charAt(i));
-            if (caractere >= 'a' && caractere <= 'z') {
-                if (caractere == 'a' || caractere == 'e' || caractere == 'i' || caractere == 'o' || caractere == 'u') {
-                    nombreVoyelles++;
-                } else {
-                    nombreConsonnes++;
-                }
+        // Exercice 4 : Valeur maximale
+        int valeurMaximale = Integer.MIN_VALUE;
+        for (String valeur : tableauDeChiffres) {
+            int intValue = Integer.parseInt(valeur);
+            if (intValue > valeurMaximale) {
+                valeurMaximale = intValue;
             }
         }
-        %>
-        <p>Le nombre de consonnes dans votre chaine est : <%= nombreConsonnes %></p>
-        <p>Le nombre de voyelles dans votre chaine est : <%= nombreVoyelles %></p>
-        <%
-    }
+
+        // Exercice 5 : Valeur minimale
+        int valeurMinimale = Integer.MAX_VALUE;
+        for (String valeur : tableauDeChiffres) {
+            int intValue = Integer.parseInt(valeur);
+            if (intValue < valeurMinimale) {
+                valeurMinimale = intValue;
+            }
+        }
+
+        // Exercice 6 : Valeur la plus proche de 0
+        int valeurPlusProcheZero = Integer.parseInt(tableauDeChiffres[0]);
+        for (String valeur : tableauDeChiffres) {
+            int intValue = Integer.parseInt(valeur);
+            if (Math.abs(intValue) < Math.abs(valeurPlusProcheZero)) {
+                valeurPlusProcheZero = intValue;
+            }
+        }
+
+        // Exercice 7 : Valeur la plus proche de 0 (2° version)
+        int valeurPlusProcheZeroV2 = Integer.parseInt(tableauDeChiffres[0]);
+        for (String valeur : tableauDeChiffres) {
+            int intValue = Integer.parseInt(valeur);
+            if (Math.abs(intValue) < Math.abs(valeurPlusProcheZeroV2) || (Math.abs(intValue) == Math.abs(valeurPlusProcheZeroV2) && intValue > 0)) {
+                valeurPlusProcheZeroV2 = intValue;
+            }
+        }
 %>
 
+<h2>Exercice 1 : Carré de la première valeur</h2>
+<p>Le carré de la première valeur est : <%= carrePremiereValeur %></p>
+
+<h2>Exercice 2 : Somme des deux premières valeurs</h2>
+<p>La somme des deux premières valeurs est : <%= sommeDeuxPremieresValeurs %></p>
+
+<h2>Exercice 3 : Somme de toutes les valeurs</h2>
+<p>La somme de toutes les valeurs est : <%= sommeToutesValeurs %></p>
+
+<h2>Exercice 4 : Valeur maximale</h2>
+<p>La valeur maximale saisie par l'utilisateur est : <%= valeurMaximale %></p>
+
+<h2>Exercice 5 : Valeur minimale</h2>
+<p>La valeur minimale saisie par l'utilisateur est : <%= valeurMinimale %></p>
+
+<h2>Exercice 6 : Valeur la plus proche de 0</h2>
+<p>La valeur la plus proche de 0 est : <%= valeurPlusProcheZero %></p>
+
+<h2>Exercice 7 : Valeur la plus proche de 0 (2° version)</h2>
+<p>La valeur la plus proche de 0 (2° version) est : <%= valeurPlusProcheZeroV2 %></p>
+
+<% } %>
 <p><a href="index.html">Retour au sommaire</a></p>
 </body>
 </html>
+``
