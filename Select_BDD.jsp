@@ -46,8 +46,36 @@
 </form>
 <%
     if (request.getMethod().equalsIgnoreCase("post")) {
-        // Réaliser la connexion à la base de données et exécuter la requête
-        // Afficher les résultats (à adapter selon vos besoins)
+        Connection conn = null;
+        try {
+            String url = "jdbc:mariadb://localhost:3306/films";
+            String user = "mysql";
+            String password = "mysql";
+
+            Class.forName("org.mariadb.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+
+            String sql = "SELECT idFilm, titre, année FROM Film WHERE année >= 2000 AND année <= 2015";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String colonne1 = rs.getString("idFilm");
+                String colonne2 = rs.getString("titre");
+                String colonne3 = rs.getString("année");
+                out.println("id : " + colonne1 + ", titre : " + colonne2 + ", année : " + colonne3 + "</br>");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Gérez les erreurs de connexion ou d'exécution de la requête
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 %>
 
@@ -61,11 +89,42 @@
 </form>
 <%
     if (request.getMethod().equalsIgnoreCase("post")) {
-        String anneeRecherche = request.getParameter("annee");
-        // Réaliser la connexion à la base de données et exécuter la requête avec l'annéeRecherche
-        // Afficher les résultats (à adapter selon vos besoins)
+        Connection conn = null;
+        try {
+            String url = "jdbc:mariadb://localhost:3306/films";
+            String user = "mysql";
+            String password = "mysql";
+
+            Class.forName("org.mariadb.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+
+            String anneeRecherche = request.getParameter("annee");
+            String sql = "SELECT idFilm, titre, année FROM Film WHERE année = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, anneeRecherche);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String colonne1 = rs.getString("idFilm");
+                String colonne2 = rs.getString("titre");
+                String colonne3 = rs.getString("année");
+                out.println("id : " + colonne1 + ", titre : " + colonne2 + ", année : " + colonne3 + "</br>");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Gérez les erreurs de connexion ou d'exécution de la requête
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 %>
+
 
 
 <!-- Exercice 3 : Modification du titre du film -->
@@ -79,12 +138,39 @@
 </form>
 <%
     if (request.getMethod().equalsIgnoreCase("post")) {
-        String idFilm = request.getParameter("idFilm");
-        String nouveauTitre = request.getParameter("nouveauTitre");
-        // Réaliser la connexion à la base de données et exécuter la requête de modification
-        // Afficher un message de confirmation
+        Connection conn = null;
+        try {
+            String url = "jdbc:mariadb://localhost:3306/films";
+            String user = "mysql";
+            String password = "mysql";
+
+            Class.forName("org.mariadb.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+
+            String idFilm = request.getParameter("idFilm");
+            String nouveauTitre = request.getParameter("nouveauTitre");
+
+            String sql = "UPDATE Film SET titre = ? WHERE idFilm = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, nouveauTitre);
+            pstmt.setString(2, idFilm);
+
+            int rowsAffected = pstmt.executeUpdate();
+            out.println("Nombre de lignes modifiées : " + rowsAffected);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Gérez les erreurs de connexion ou d'exécution de la requête
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 %>
+
 
 
 <!-- Exercice 4 : La valeur maximum -->
@@ -96,8 +182,37 @@
 </form>
 <%
     if (request.getMethod().equalsIgnoreCase("post")) {
-        // Réaliser la connexion à la base de données et exécuter la requête d'insertion du nouveau film
-        // Afficher un message de confirmation
+        Connection conn = null;
+        try {
+            String url = "jdbc:mariadb://localhost:3306/films";
+            String user = "mysql";
+            String password = "mysql";
+
+            Class.forName("org.mariadb.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+
+            // Récupérez les détails du nouveau film depuis le formulaire
+            // ...
+            
+            String sql = "INSERT INTO Film (titre, année) VALUES (?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            // Définissez les paramètres pour le nouveau film
+            // pstmt.setString(1, ...);
+            // pstmt.setString(2, ...);
+
+            int rowsAffected = pstmt.executeUpdate();
+            out.println("Nouveau film ajouté. Nombre de lignes ajoutées : " + rowsAffected);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Gérez les erreurs de connexion ou d'exécution de la requête
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 %>
 
