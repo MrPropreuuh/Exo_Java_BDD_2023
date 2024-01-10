@@ -10,8 +10,8 @@
     <p><input type="submit" value="Afficher"></p>
 </form>
 
-<h2>Exercice 1 : Combien de 'e' dans notre chaine de caractères ?</h2>
-<p>Ecrire un programme pour compter le nombre de lettre e dans votre chaine de caractères</p>
+    <h2>Exercice 1 : Combien de 'e' dans notre chaine de caractères ?</h2>
+    <p>Ecrire un programme pour compter le nombre de lettre e dans votre chaine de caractères</p>
 
 <%
     // Exercice 1 : Combien de 'e' dans la chaîne
